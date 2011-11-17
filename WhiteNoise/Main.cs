@@ -1,136 +1,76 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using SharpPcap;
-using SharpPcap.AirPcap;
-using SharpPcap.LibPcap;
-using SharpPcap.WinPcap;
 
 namespace WhiteNoise
 {
 	public static class MainClass
 	{
-		public static string LIBRARY_VERSION = SharpPcap.Version.VersionString;
-		public static CaptureFileWriterDevice OUTPUT_STREAM;
-		
-		public const string DEFAULT_FILE = @"results.pcap";
-		public const string DEFAULT_FILTER = @"ip and tcp";
-		public const int TIMEOUT = 1000;
-		
 		public static void Main (string[] args)
 		{
-			ICollection<ICaptureDevice> captureDevices = new List<ICaptureDevice>();
+			DeviceWorker devWorker = null;
 			
 			try
 			{
-				CaptureDeviceList deviceList = CaptureDeviceList.New();
-				
-				if (deviceList.Count < 1)
+				// Initialize a new worker (this will throw an exception if no PCAP libraries are found).
+				devWorker = new DeviceWorker(lazyLoad: true);
+			
+				if (devWorker.Devices.Count < 1)
 				{
 					Console.WriteLine("No devices found. Please press any key to continue.");
+					return;
 				}
-				else
+				
+				Console.WriteLine("Available devices:");
+				Console.WriteLine();
+				
+				foreach (var item in devWorker.Devices)
 				{
-					// Feed a dog a bone.
-					foreach (ICaptureDevice dev in deviceList)
+					Console.WriteLine(item);
+				}
+				
+				Console.Write ("Device(s) to be captured (comma separated): ");
+				string inputDevices = Console.ReadLine();
+				
+				Console.Write("Filter [{0}]: ", devWorker.Filter);
+				string filter = Console.ReadLine().Trim();
+				
+				if (!string.IsNullOrWhiteSpace(filter))
+				{
+					devWorker.Filter = filter;
+				}
+				
+				// Pull apart the request in an attempt to find the devices.
+				foreach (string segment in inputDevices.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+				{
+					int deviceNumber;
+					
+					if (int.TryParse(segment.Trim(), out deviceNumber))
 					{
-						string.Format("{1}{0}", Environment.NewLine, dev.Description);
-					}
-					
-					Console.Write ("Device(s) to be captured (comma separated): ");
-					string input = Console.ReadLine();
-					
-					// Pull apart the request in an attempt to find the devices.
-					foreach (string segment in input.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-					{
-						int deviceNumber;
-						
-						if (int.TryParse(segment.Trim(), out deviceNumber))
-						{
-							ICaptureDevice device = deviceList[deviceNumber];
-							
-							if (!captureDevices.Contains(device))
-							{
-								captureDevices.Add(device);
-							}
-						}
-					}
-					
-					Console.Write("Filter [{0}]: ", DEFAULT_FILTER);
-					string filter = Console.ReadLine().Trim();
-					
-					// Apply the default filter if none was given.
-					if (!string.IsNullOrEmpty(filter))
-					{
-						filter = DEFAULT_FILTER;
-					}
-					
-					// Open each device requested for scan.
-					foreach (ICaptureDevice device in captureDevices)
-					{
-						// Apply filter and event handler(s).
-						device.OnPacketArrival += new PacketArrivalEventHandler(device_OnPacketArrival);
-						device.Filter = filter;
-						
-						if (device is AirPcapDevice)
-						{
-							// NOTE: AirPcap devices cannot disable local capture.
-							var airDevice = device as AirPcapDevice;
-							airDevice.Open(OpenFlags.DataTransferUdp, TIMEOUT);
-						}
-						else if (device is WinPcapDevice)
-						{
-							var winDevice = device as WinPcapDevice;
-							winDevice.Open(OpenFlags.DataTransferUdp | OpenFlags.NoCaptureLocal, TIMEOUT);
-						}
-						else
-						{
-							device.Open(DeviceMode.Promiscuous, TIMEOUT);
-						}
-						
-						// Start capturing.
-						device.StartCapture();
+						devWorker.CaptureDevice(deviceNumber);
 					}
 				}
+				
+				// Waiting for 1630.
+				Console.ReadKey();
 			}
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex.Message);
-				Console.WriteLine("TcpDump or WinPcap is not installed! Press any key to continue.");
-			}
-			
-			// Waiting for 1630.
-			Console.ReadKey();
-			
-			// Close any open devices.
-			foreach (ICaptureDevice device in captureDevices)
-			{
-				device.Close();
-			}
-		}
-		
-		private static void device_OnPacketArrival(object sender, CaptureEventArgs e)
-		{
-			CaptureFileWriterDevice writer = null;
-			
-			try
-			{
-				// Dump to the file.
-				writer = new CaptureFileWriterDevice(DEFAULT_FILE, FileMode.Append);
-				writer.Write(e.Packet);
-			}
-			catch (Exception ex)
-			{
-				// Let the developer know!!!
-				Debug.WriteLine(ex.Message);
+				
+				// Inform the user where to get the prize.
+				Console.WriteLine("TcpDump or WinPcap is not installed!");
+				Console.WriteLine("Please download the appropriate libraries.");
+				Console.WriteLine();
+				Console.WriteLine("\t{0}{1}", "Windows:".PadRight(20), @"http://www.winpcap.org");
+				Console.WriteLine("\t{0}{1}", "Linux or MacOS:".PadRight(20), @"http://www.tcpdump.org");
+				Console.WriteLine();
 			}
 			finally
 			{
-				// Clean up.
-				if (writer != null)
+				// Close any open devices.
+				if (devWorker != null)
 				{
-					writer.Close();
+					devWorker.Stop();
 				}
 			}
 		}
