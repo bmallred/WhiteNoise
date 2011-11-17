@@ -83,25 +83,25 @@ namespace WhiteNoise
 		{
 			_file = new FileInfo("results.pcap");
 			
-			if (!lazyLoad)
-			{
-				this._devices = CaptureDeviceList.Instance;
-			}
-			
 			this.Devices = new List<string>();
 			this.Filter = "ip and tcp";
 			this.Timeout = 1000;
 			this.Version = SharpPcap.Version.VersionString;
 			
-			// Make a pretty list of devices.
-			for (int i = 0; i < this._devices.Count; i++)
+			if (!lazyLoad)
 			{
-				this.Devices.Add(
-					string.Format("{1}. {2}{0}", 
-						Environment.NewLine, 
-						i + 1, 
-						this._devices[i].Description)
-					);
+				this._devices = CaptureDeviceList.Instance;
+				
+								// Make a pretty list of devices.
+				for (int i = 0; i < this._devices.Count; i++)
+				{
+					this.Devices.Add(
+						string.Format("{1}. {2}{0}", 
+							Environment.NewLine, 
+							i + 1, 
+							this._devices[i].Description)
+						);
+				}
 			}
 		}
 		
@@ -115,16 +115,9 @@ namespace WhiteNoise
 		{
 			var device = this._devices[deviceNumber - 1];
 			
-			//// NOTE: This may need to be placed elsewhere.
-			//if (!this._captureDevices.Contains(device))
-			//{
-			//	this._captureDevices.Add(device);
-			//}
-			
-			// Apply filter and event handler(s).
+			// Add event handler(s).
 			device.OnPacketArrival += new PacketArrivalEventHandler(Device_OnPacketArrival);
-			device.Filter = this.Filter;
-						
+			
 			// Open each device requested for scan.
 			if (device is AirPcapDevice)
 			{
@@ -141,6 +134,9 @@ namespace WhiteNoise
 			{
 				device.Open(DeviceMode.Promiscuous, this.Timeout);
 			}
+			
+			// Apply the filter *only* after the device is open.
+			device.Filter = this.Filter;
 			
 			// Start capturing.
 			device.StartCapture();
@@ -192,6 +188,7 @@ namespace WhiteNoise
 		private static void Device_OnPacketArrival(object sender, CaptureEventArgs e)
 		{
 			CaptureFileWriterDevice writer = null;
+			Debug.WriteLine("Received {0} bytes.", e.Packet.Data.Length);
 			
 			try
 			{

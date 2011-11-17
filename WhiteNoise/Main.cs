@@ -3,8 +3,17 @@ using System.Diagnostics;
 
 namespace WhiteNoise
 {
+	/// <summary>
+	/// Main class.
+	/// </summary>
 	public static class MainClass
 	{
+		/// <summary>
+		/// The entry point of the program, where the program control starts and ends.
+		/// </summary>
+		/// <param name='args'>
+		/// The command-line arguments.
+		/// </param>
 		public static void Main (string[] args)
 		{
 			DeviceWorker devWorker = null;
@@ -12,7 +21,7 @@ namespace WhiteNoise
 			try
 			{
 				// Initialize a new worker (this will throw an exception if no PCAP libraries are found).
-				devWorker = new DeviceWorker(lazyLoad: true);
+				devWorker = new DeviceWorker();
 			
 				if (devWorker.Devices.Count < 1)
 				{
@@ -28,6 +37,7 @@ namespace WhiteNoise
 					Console.WriteLine(item);
 				}
 				
+				Console.WriteLine();
 				Console.Write ("Device(s) to be captured (comma separated): ");
 				string inputDevices = Console.ReadLine();
 				
@@ -38,6 +48,9 @@ namespace WhiteNoise
 				{
 					devWorker.Filter = filter;
 				}
+				
+				Console.WriteLine();
+				Console.WriteLine("Capturing selected devices. Press any key to exit.");
 				
 				// Pull apart the request in an attempt to find the devices.
 				foreach (string segment in inputDevices.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
