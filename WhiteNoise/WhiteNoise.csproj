@@ -32,21 +32,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="PacketDotNet">
-      <HintPath>Resources\PacketDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpPcap">
-      <HintPath>Resources\SharpPcap.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="DeviceWorker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="Resources\PacketDotNet.dll" />
-    <None Include="Resources\SharpPcap.dll" />
+    <ProjectReference Include="..\WhiteNoise.Listen\WhiteNoise.Listen.csproj">
+      <Project>{F310496B-BA21-4326-9B48-156ED21B1FC2}</Project>
+      <Name>WhiteNoise.Listen</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

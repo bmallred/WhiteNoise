@@ -3,18 +3,84 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteNoise", "WhiteNoise\WhiteNoise.csproj", "{EBCA3317-A6C3-4265-851B-02173598CF81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteNoise.Listen", "WhiteNoise.Listen\WhiteNoise.Listen.csproj", "{F310496B-BA21-4326-9B48-156ED21B1FC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{DE564CA5-B56D-4164-8124-499700031529}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Iesi.Collections.dll = Resources\Iesi.Collections.dll
+		Resources\NHibernate.dll = Resources\NHibernate.dll
+		Resources\PacketDotNet.dll = Resources\PacketDotNet.dll
+		Resources\SharpPcap.dll = Resources\SharpPcap.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteNoise.Test", "WhiteNoise.Test\WhiteNoise.Test.csproj", "{AEA071CB-7205-4054-A60F-8D5FD82BE80D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteNoise.Storage", "WhiteNoise.Storage\WhiteNoise.Storage.csproj", "{38860173-5301-424A-BE5F-F71B0F94D294}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteNoise.Domain", "WhiteNoise.Domain\WhiteNoise.Domain.csproj", "{0686B6EA-7782-45FE-A990-A06EAD8A57C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B808F57E-8352-4CFD-B6F5-C75439147755}"
+	ProjectSection(SolutionItems) = preProject
+		MIT.txt = MIT.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
+		Default|Any CPU = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0686B6EA-7782-45FE-A990-A06EAD8A57C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0686B6EA-7782-45FE-A990-A06EAD8A57C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{0686B6EA-7782-45FE-A990-A06EAD8A57C6}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{0686B6EA-7782-45FE-A990-A06EAD8A57C6}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{0686B6EA-7782-45FE-A990-A06EAD8A57C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{0686B6EA-7782-45FE-A990-A06EAD8A57C6}.Release|x86.Build.0 = Release|Any CPU
+		{38860173-5301-424A-BE5F-F71B0F94D294}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{38860173-5301-424A-BE5F-F71B0F94D294}.Debug|x86.Build.0 = Debug|Any CPU
+		{38860173-5301-424A-BE5F-F71B0F94D294}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{38860173-5301-424A-BE5F-F71B0F94D294}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{38860173-5301-424A-BE5F-F71B0F94D294}.Release|x86.ActiveCfg = Release|Any CPU
+		{38860173-5301-424A-BE5F-F71B0F94D294}.Release|x86.Build.0 = Release|Any CPU
+		{AEA071CB-7205-4054-A60F-8D5FD82BE80D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AEA071CB-7205-4054-A60F-8D5FD82BE80D}.Debug|x86.Build.0 = Debug|Any CPU
+		{AEA071CB-7205-4054-A60F-8D5FD82BE80D}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEA071CB-7205-4054-A60F-8D5FD82BE80D}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{AEA071CB-7205-4054-A60F-8D5FD82BE80D}.Release|x86.ActiveCfg = Release|Any CPU
+		{AEA071CB-7205-4054-A60F-8D5FD82BE80D}.Release|x86.Build.0 = Release|Any CPU
 		{EBCA3317-A6C3-4265-851B-02173598CF81}.Debug|x86.ActiveCfg = Debug|x86
 		{EBCA3317-A6C3-4265-851B-02173598CF81}.Debug|x86.Build.0 = Debug|x86
 		{EBCA3317-A6C3-4265-851B-02173598CF81}.Release|x86.ActiveCfg = Release|x86
 		{EBCA3317-A6C3-4265-851B-02173598CF81}.Release|x86.Build.0 = Release|x86
+		{F310496B-BA21-4326-9B48-156ED21B1FC2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F310496B-BA21-4326-9B48-156ED21B1FC2}.Debug|x86.Build.0 = Debug|Any CPU
+		{F310496B-BA21-4326-9B48-156ED21B1FC2}.Release|x86.ActiveCfg = Release|Any CPU
+		{F310496B-BA21-4326-9B48-156ED21B1FC2}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = WhiteNoise\WhiteNoise.csproj
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$1.ResourceNamePolicy = FileName
+		$0.TextStylePolicy = $2
+		$2.inheritsSet = null
+		$2.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $3
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/x-csharp
+		$3.scope = text/x-csharp
+		$0.TextStylePolicy = $4
+		$4.FileWidth = 120
+		$4.TabWidth = 4
+		$4.inheritsSet = Mono
+		$4.inheritsScope = text/plain
+		$4.scope = text/plain
+		$0.StandardHeader = $5
+		$5.Text = @\n${FileName}\n \nAuthor:\n      ${AuthorName} <${AuthorEmail}>\n\nCopyright (c) ${Year} ${CopyrightHolder}\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.
+		$5.IncludeInNewFiles = True
 	EndGlobalSection
 EndGlobal

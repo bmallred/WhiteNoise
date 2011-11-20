@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AEA071CB-7205-4054-A60F-8D5FD82BE80D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>WhiteNoise.Test</RootNamespace>
+    <AssemblyName>WhiteNoise.Test</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\Resources\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\Resources\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\Resources\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="PacketDotNet">
+      <HintPath>..\Resources\PacketDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpPcap">
+      <HintPath>..\Resources\SharpPcap.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\Resources\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\Resources\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\Resources\pnunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Domain\NHibernate\SchemaTests.cs" />
+    <Compile Include="Domain\Concrete\DbRepositoryTests.cs" />
+    <Compile Include="Domain\Concrete\DbPacketRepositoryTests.cs" />
+    <Compile Include="TestHelpers\Global.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Listen\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Storage\" />
+    <Folder Include="Domain\NHibernate\" />
+    <Folder Include="Domain\Concrete\" />
+    <Folder Include="TestHelpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WhiteNoise.Domain\WhiteNoise.Domain.csproj">
+      <Project>{0686B6EA-7782-45FE-A990-A06EAD8A57C6}</Project>
+      <Name>WhiteNoise.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WhiteNoise.Listen\WhiteNoise.Listen.csproj">
+      <Project>{F310496B-BA21-4326-9B48-156ED21B1FC2}</Project>
+      <Name>WhiteNoise.Listen</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WhiteNoise.Storage\WhiteNoise.Storage.csproj">
+      <Project>{38860173-5301-424A-BE5F-F71B0F94D294}</Project>
+      <Name>WhiteNoise.Storage</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
