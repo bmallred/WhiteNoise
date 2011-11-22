@@ -39,16 +39,17 @@ namespace WhiteNoise.Test.Domain.NHibernate
 	[TestFixture()]
 	public class SchemaTests
 	{
+		/// <summary>
+		/// Determines whether this instance can generate schema.
+		/// </summary>
+		/// <returns>
+		/// <c>true</c> if this instance can generate schema; otherwise, <c>false</c>.
+		/// </returns>
 		[Test()]
 		public void CanGenerateSchema()
 		{
-			var rawConfig = new Configuration();
-			
-			// NOTE: Removed but left in place as a reminder.
-            //rawConfig.SetNamingStrategy(new MsSqlNamingStrategy());
-			
-			Configuration configuration = Fluently.Configure(rawConfig)
-                .Database(NHibernateConfiguration.CreateDatabaseConfiguration(Global.ConnectionString, Global.DatabaseProvider))
+			Configuration configuration = Fluently.Configure()
+				.Database(NHibernateConfiguration.CreateDatabaseConfiguration(Global.ConnectionString, Global.DatabaseProvider))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<NHibernateConfiguration>())
                 .BuildConfiguration();
 

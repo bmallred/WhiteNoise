@@ -80,19 +80,37 @@ namespace WhiteNoise.Domain.NHibernate
             {
                 case "MsSql2008":
                 case "System.Data.SqlClient":
-                    return MsSqlConfiguration.MsSql2008.ConnectionString(connectionString).ShowSql();
+                    return MsSqlConfiguration.MsSql2008
+						.ConnectionString(connectionString).ShowSql();
+					
                 case "Firebird":
-                    return new FirebirdConfiguration().ConnectionString(connectionString);
+                    return new FirebirdConfiguration()
+						.ConnectionString(connectionString);
+					
                 case "MySql":
-                    return MySQLConfiguration.Standard.ConnectionString(connectionString);
+                    return MySQLConfiguration.Standard
+						.ConnectionString(connectionString);
+					
                 case "MsSqlCe":
-                    return MsSqlCeConfiguration.Standard.ConnectionString(connectionString);
+                    return MsSqlCeConfiguration.Standard
+						.ConnectionString(connectionString);
+					
                 case "SQLite":
-                    return SQLiteConfiguration.Standard.ConnectionString(connectionString);
+                    return SQLiteConfiguration.Standard
+						.ConnectionString(connectionString);
+					
                 case "JetDriver":
-                    return JetDriverConfiguration.Standard.ConnectionString(connectionString);
+                    return JetDriverConfiguration.Standard
+						.ConnectionString(connectionString);
+					
+				case "PostgreSQL":
+					return PostgreSQLConfiguration.Standard
+						.Raw("hbm2ddl.keywords","none")
+						.ConnectionString(connectionString);
+					
                 default:
-                    return MsSqlConfiguration.MsSql2008.ConnectionString(connectionString);
+                    return MsSqlConfiguration.MsSql2008
+						.ConnectionString(connectionString);
             }
         }
 		
@@ -104,12 +122,7 @@ namespace WhiteNoise.Domain.NHibernate
 		/// </returns>
         public ISessionFactory CreateSessionFactory()
         {
-            var rawConfig = new Configuration();
-			
-			// NOTE: Removed but left in place as a reminder.
-            //rawConfig.SetNamingStrategy(new MsSqlNamingStrategy());
-
-            Configuration configuration = Fluently.Configure(rawConfig)
+            Configuration configuration = Fluently.Configure()
                 .Database(CreateDatabaseConfiguration(this.connectionString, this.provider))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<NHibernateConfiguration>())
                 .BuildConfiguration();

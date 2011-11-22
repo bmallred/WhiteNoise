@@ -40,13 +40,14 @@ namespace WhiteNoise.Domain.Mapping
 		/// </summary>
 		public PacketMap()
 		{
-			this.Table("Packet");
-			this.LazyLoad();
-			this.Id(x => x.Id, "Id");
+			this.Table("packet");
+			//this.LazyLoad();
+			this.Id(x => x.Id, "id")
+				.GeneratedBy.Identity();
 			
-			this.Map(x => x.Type, "Type")
+			this.Map(x => x.Type, "type")
 				.Not.Nullable();
-			this.Map(x => x.Data, "Data")
+			this.Map(x => x.Data, "data")
 				.Nullable();
 		}
 	}

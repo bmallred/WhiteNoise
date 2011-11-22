@@ -36,12 +36,12 @@ namespace WhiteNoise.Test.TestHelpers
 		/// <summary>
 		/// Constant connection string.
 		/// </summary>
-		public const string ConnectionString = @"Data Source=file:test.db";
+		public const string ConnectionString = @"Server=localhost;Database=test;User ID=postgres;Password=password;"; //@"Data Source=file:test.db";
 		
 		/// <summary>
 		/// Constant database provider.
 		/// </summary>
-		public const string DatabaseProvider = @"SQLite";
+		public const string DatabaseProvider = @"PostgreSQL";
 	}
 }
 

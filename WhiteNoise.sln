@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{
 		Resources\NHibernate.dll = Resources\NHibernate.dll
 		Resources\PacketDotNet.dll = Resources\PacketDotNet.dll
 		Resources\SharpPcap.dll = Resources\SharpPcap.dll
+		Resources\Npgsql.dll = Resources\Npgsql.dll
+		Resources\Npgsql.dll.mdb = Resources\Npgsql.dll.mdb
+		Resources\Npgsql.xml = Resources\Npgsql.xml
+		Resources\policy.2.0.Npgsql.dll = Resources\policy.2.0.Npgsql.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteNoise.Test", "WhiteNoise.Test\WhiteNoise.Test.csproj", "{AEA071CB-7205-4054-A60F-8D5FD82BE80D}"
@@ -70,6 +74,7 @@ Global
 		$2.inheritsSet = null
 		$2.scope = text/x-csharp
 		$0.CSharpFormattingPolicy = $3
+		$3.IndentSwitchBody = True
 		$3.inheritsSet = Mono
 		$3.inheritsScope = text/x-csharp
 		$3.scope = text/x-csharp
