@@ -47,7 +47,7 @@ namespace WhiteNoise.Domain.NHibernate
         private readonly string provider;
 		
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Wombat.Domain.NHibernate.NHibernateConfiguration"/> class.
+		/// Initializes a new instance of the <see cref="WhiteNoise.Domain.NHibernate.NHibernateConfiguration"/> class.
 		/// </summary>
 		/// <param name='connectionString'>
 		/// Connection string.
