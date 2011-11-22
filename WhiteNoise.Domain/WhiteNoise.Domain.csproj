@@ -47,6 +47,7 @@
     <Compile Include="Concrete\DbPacketRepository.cs" />
     <Compile Include="Concrete\DbRepository.cs" />
     <Compile Include="Mapping\PacketMap.cs" />
+    <Compile Include="Entities\DatabaseEntity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

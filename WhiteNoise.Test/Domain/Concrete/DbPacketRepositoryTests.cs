@@ -23,10 +23,10 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentNHibernate.Testing;
 using NHibernate;
 using NUnit.Framework;
 using WhiteNoise.Domain.Abstract;
@@ -60,34 +60,30 @@ namespace WhiteNoise.Test.Domain.Concrete
 			};
 		}
 		
+		/// <summary>
+		/// Determines whether this instance can add packet.
+		/// </summary>
+		/// <returns>
+		/// <c>true</c> if this instance can add packet; otherwise, <c>false</c>.
+		/// </returns>
 		[Test]
 		public void CanAddPacket()
 		{
-			var item = new Packet() { Type = "Type4", Data = new byte[] { } };
-			
 			using (ISession session = this.SessionFactory.OpenSession())
 			{
-				IPacketRepository repository = new DbPacketRepository(session);
-				repository.Add(item);
-			}
-			
-			// Use a different session to properly test the transaction.
-			using (ISession session = this.SessionFactory.OpenSession())
-			{
-				var fromDatabase = session.Get<Packet>(item.Id);
-				
-				Assert.That(fromDatabase, Is.Not.Null);
-				Assert.That(fromDatabase, Is.Not.SameAs(item));
-				Assert.That(fromDatabase, Is.EqualTo(item.Type));
+				new PersistenceSpecification<Packet>(session)
+			        .CheckProperty(c => c.Type, "Type4")
+			        .CheckProperty(c => c.Data, new byte[] { })
+			        .VerifyTheMappings();
 			}
 		}
 		
-		[Test]
-		public void CanDetermineEqualityOfPackets()
-		{
-			throw new NotImplementedException();
-		}
-		
+		/// <summary>
+		/// Determines whether this instance can fetch repository.
+		/// </summary>
+		/// <returns>
+		/// <c>true</c> if this instance can fetch repository; otherwise, <c>false</c>.
+		/// </returns>
 		[Test]
 		public void CanFetchRepository()
 		{
@@ -105,6 +101,12 @@ namespace WhiteNoise.Test.Domain.Concrete
 			}
 		}
 		
+		/// <summary>
+		/// Determines whether this instance can find by identifier.
+		/// </summary>
+		/// <returns>
+		/// <c>true</c> if this instance can find by identifier; otherwise, <c>false</c>.
+		/// </returns>
 		[Test]
 		public void CanFindById()
 		{
@@ -121,6 +123,12 @@ namespace WhiteNoise.Test.Domain.Concrete
 			}
 		}
 		
+		/// <summary>
+		/// Determines whether this instance can remove packet.
+		/// </summary>
+		/// <returns>
+		/// <c>true</c> if this instance can remove packet; otherwise, <c>false</c>.
+		/// </returns>
 		[Test]
 		public void CanRemovePacket()
 		{
@@ -140,6 +148,12 @@ namespace WhiteNoise.Test.Domain.Concrete
 			}
 		}
 		
+		/// <summary>
+		/// Determines whether this instance can update packet.
+		/// </summary>
+		/// <returns>
+		/// <c>true</c> if this instance can update packet; otherwise, <c>false</c>.
+		/// </returns>
 		[Test]
 		public void CanUpdatePacket()
 		{

@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{
 		Resources\Npgsql.dll.mdb = Resources\Npgsql.dll.mdb
 		Resources\Npgsql.xml = Resources\Npgsql.xml
 		Resources\policy.2.0.Npgsql.dll = Resources\policy.2.0.Npgsql.dll
+		Resources\NHibernate.ByteCode.Castle.dll = Resources\NHibernate.ByteCode.Castle.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhiteNoise.Test", "WhiteNoise.Test\WhiteNoise.Test.csproj", "{AEA071CB-7205-4054-A60F-8D5FD82BE80D}"

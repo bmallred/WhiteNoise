@@ -23,8 +23,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
-using System;
 using FluentNHibernate.Mapping;
 using WhiteNoise.Domain.Entities;
 
@@ -41,9 +39,11 @@ namespace WhiteNoise.Domain.Mapping
 		public PacketMap()
 		{
 			this.Table("packet");
-			//this.LazyLoad();
+			this.LazyLoad();
+			
 			this.Id(x => x.Id, "id")
-				.GeneratedBy.Identity();
+				.CustomSqlType("Serial")
+				.GeneratedBy.Native();
 			
 			this.Map(x => x.Type, "type")
 				.Not.Nullable();

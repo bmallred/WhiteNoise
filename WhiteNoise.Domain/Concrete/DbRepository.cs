@@ -23,11 +23,10 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
-using System;
 using System.Collections.Generic;
 using NHibernate;
 using WhiteNoise.Domain.Abstract;
+using WhiteNoise.Domain.Entities;
 
 namespace WhiteNoise.Domain.Concrete
 {
@@ -35,6 +34,7 @@ namespace WhiteNoise.Domain.Concrete
 	/// Database repository.
 	/// </summary>
 	public abstract class DbRepository<T> : IRepository<T>
+		where T : DatabaseEntity
 	{
 		/// <summary>
 		/// The NHibernate session.
@@ -122,12 +122,11 @@ namespace WhiteNoise.Domain.Concrete
 		/// <value>
 		/// The collection.
 		/// </value>
-		public IList<T> Collection 
+		public IList<T> Collection
 		{
 			get 
 			{
-				throw new NotImplementedException();
-				//return this._session.QueryOver<T>.QueryOver<T>().List();
+				return this._session.QueryOver<T>().List();
 			}
 		}
 		

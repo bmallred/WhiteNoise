@@ -23,16 +23,15 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using SharpPcap;
 using SharpPcap.AirPcap;
 using SharpPcap.LibPcap;
 using SharpPcap.WinPcap;
-using System.ComponentModel;
 
 namespace WhiteNoise.Listen
 {
@@ -41,7 +40,14 @@ namespace WhiteNoise.Listen
 	/// </summary>
 	public class DeviceWorker : BackgroundWorker
 	{
+		/// <summary>
+		/// The file to dump information.
+		/// </summary>
 		private static FileInfo _file;
+		
+		/// <summary>
+		/// The devices used for capturing packets.
+		/// </summary>
 		private CaptureDeviceList _devices;
 		
 		/// <summary>
@@ -119,7 +125,7 @@ namespace WhiteNoise.Listen
 			{
 				this._devices = CaptureDeviceList.Instance;
 				
-								// Make a pretty list of devices.
+				// Make a pretty list of devices.
 				for (int i = 0; i < this._devices.Count; i++)
 				{
 					this.Devices.Add(
@@ -206,8 +212,15 @@ namespace WhiteNoise.Listen
 			}
 		}
 		
+		/// <summary>
+		/// Raises the do work event.
+		/// </summary>
+		/// <param name='e'>
+		/// Work event arguments.
+		/// </param>
 		protected override void OnDoWork (DoWorkEventArgs e)
 		{
+			// TODO: Add the working portion (possibly pull from previous areas).
 			base.OnDoWork (e);
 		}
 		

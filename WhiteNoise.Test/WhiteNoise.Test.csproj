@@ -45,7 +45,6 @@
     <Reference Include="SharpPcap">
       <HintPath>..\Resources\SharpPcap.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="nunit.framework">
       <HintPath>..\Resources\nunit.framework.dll</HintPath>
     </Reference>
@@ -59,6 +58,9 @@
       <HintPath>..\Resources\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Security" />
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\Resources\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />

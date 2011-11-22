@@ -24,14 +24,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using System;
-
 namespace WhiteNoise.Domain.Entities
 {
 	/// <summary>
 	/// Packet.
 	/// </summary>
-	public class Packet
+	public class Packet : DatabaseEntity
 	{
 		/// <summary>
 		/// Gets or sets the identifier.
@@ -39,7 +37,7 @@ namespace WhiteNoise.Domain.Entities
 		/// <value>
 		/// The identifier.
 		/// </value>
-		public virtual int Id { get; internal set; }
+		public virtual int Id { get; set; }
 		
 		/// <summary>
 		/// Gets or sets the type.

@@ -23,7 +23,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 using System.Collections.Generic;
 using FluentNHibernate.Cfg;
 using NHibernate;
@@ -36,9 +35,8 @@ using WhiteNoise.Test.TestHelpers;
 namespace WhiteNoise.Test.Domain.Concrete
 {
 	/// <summary>
-	/// Database repository tests.
+	/// Base database repository tests.
 	/// </summary>
-	[TestFixture]
 	public abstract class DbRepositoryTests<T>
 	{
 		/// <summary>
@@ -63,6 +61,20 @@ namespace WhiteNoise.Test.Domain.Concrete
 		public ICollection<T> Items { get; set; }
 		
 		/// <summary>
+		/// Tests the fixture set up.
+		/// </summary>
+		[TestFixtureSetUp]
+		public void TestFixtureSetUp()
+		{
+			this._configuration = Fluently.Configure()
+                .Database(NHibernateConfiguration.CreateDatabaseConfiguration(Global.ConnectionString, Global.DatabaseProvider))
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<NHibernateConfiguration>())
+                .BuildConfiguration();
+			
+        	this.SessionFactory = this._configuration.BuildSessionFactory();
+		}
+		
+		/// <summary>
 		/// Setups the contex.
 		/// </summary>
 		[SetUp]
@@ -70,25 +82,6 @@ namespace WhiteNoise.Test.Domain.Concrete
 		{
 			new SchemaExport(this._configuration).Execute(false, true, false);
 			this.LoadData();
-		}
-		
-		/// <summary>
-		/// Tests the fixture set up.
-		/// </summary>
-		[TestFixtureSetUp]
-		public void TestFixtureSetUp()
-		{
-			var rawConfig = new Configuration();
-			
-			// NOTE: Removed but left in place as a reminder.
-            //rawConfig.SetNamingStrategy(new MsSqlNamingStrategy());
-
-            this._configuration = Fluently.Configure(rawConfig)
-                .Database(NHibernateConfiguration.CreateDatabaseConfiguration(Global.ConnectionString, Global.DatabaseProvider))
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<NHibernateConfiguration>())
-                .BuildConfiguration();
-
-            this.SessionFactory = this._configuration.BuildSessionFactory();
 		}
 		
 		/// <summary>

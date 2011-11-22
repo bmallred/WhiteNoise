@@ -1,5 +1,5 @@
 // 
-// Global.cs
+// DatabaseEntity.cs
 //  
 // Author:
 //       Bryan Allred <bryan.allred@gmail.com>
@@ -24,22 +24,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-namespace WhiteNoise.Test.TestHelpers
+namespace WhiteNoise.Domain.Entities
 {
 	/// <summary>
-	/// Global variables.
+	/// Database entity.
 	/// </summary>
-	public static class Global
+	public abstract class DatabaseEntity
 	{
-		/// <summary>
-		/// Constant connection string.
-		/// </summary>
-		public const string ConnectionString = @"Server=localhost;Database=test;User ID=postgres;Password=password;";
-		
-		/// <summary>
-		/// Constant database provider.
-		/// </summary>
-		public const string DatabaseProvider = @"PostgreSQL";
+		// Stub.
 	}
 }
 
