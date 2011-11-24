@@ -32,6 +32,11 @@ namespace WhiteNoise.Test.TestHelpers
 	public static class Global
 	{
 		/// <summary>
+		/// Constant capture file.
+		/// </summary>
+		public const string CaptureFile = @"results.pcap";
+		
+		/// <summary>
 		/// Constant connection string.
 		/// </summary>
 		public const string ConnectionString = @"Server=localhost;Database=test;User ID=postgres;Password=password;";

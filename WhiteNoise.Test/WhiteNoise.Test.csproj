@@ -68,6 +68,8 @@
     <Compile Include="Domain\Concrete\DbRepositoryTests.cs" />
     <Compile Include="Domain\Concrete\DbPacketRepositoryTests.cs" />
     <Compile Include="TestHelpers\Global.cs" />
+    <Compile Include="Listen\DeviceWorkerTests.cs" />
+    <Compile Include="Storage\DatabaseWorkerTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
