@@ -40,11 +40,16 @@ namespace WhiteNoise.Listen
 	/// </summary>
 	public class DeviceWorker : BackgroundWorker
 	{
-		/// <summary>
-		/// The file to dump information.
-		/// </summary>
-		private static FileInfo _file;
-		
+        /// <summary>
+        /// The capture file writer.
+        /// </summary>
+        private static CaptureFileWriterDevice _captureFileWriter = null;
+
+        /// <summary>
+        /// The file to dump information.
+        /// </summary>
+        private static FileInfo _file;
+
 		/// <summary>
 		/// The devices used for capturing packets.
 		/// </summary>
@@ -114,8 +119,9 @@ namespace WhiteNoise.Listen
 		/// </param>
 		public DeviceWorker(bool lazyLoad = false)
 		{
+            _captureFileWriter = null;
 			_file = new FileInfo("results.pcap");
-			
+
 			this.Devices = new List<string>();
 			this.Filter = "ip and tcp";
 			this.Timeout = 1000;
@@ -173,6 +179,9 @@ namespace WhiteNoise.Listen
 			
 			// Apply the filter *only* after the device is open.
 			device.Filter = this.Filter;
+
+            // Create the capture file writer.
+            _captureFileWriter = new CaptureFileWriterDevice((LibPcapLiveDevice)device, _file.FullName);
 			
 			// Start capturing.
 			device.StartCapture();
@@ -183,6 +192,7 @@ namespace WhiteNoise.Listen
 		/// </summary>
 		public void Stop()
 		{
+            // Stop capturing on all devices.
 			foreach (ICaptureDevice device in this._devices)
 			{
 				if (device.Started)
@@ -190,6 +200,12 @@ namespace WhiteNoise.Listen
 					device.StopCapture();
 				}
 			}
+
+            // Close the capture writer.
+            if (_captureFileWriter != null)
+            {
+                _captureFileWriter.Close();
+            }
 		}
 		
 		/// <summary>
@@ -235,14 +251,13 @@ namespace WhiteNoise.Listen
 		/// </param>
 		private static void Device_OnPacketArrival(object sender, CaptureEventArgs e)
 		{
-			CaptureFileWriterDevice writer = null;
 			Debug.WriteLine("Received {0} bytes.", e.Packet.Data.Length);
 			
 			try
 			{
 				// Dump to the file.
-				writer = new CaptureFileWriterDevice(_file.FullName, FileMode.Append);
-				writer.Write(e.Packet);
+				//writer = new CaptureFileWriterDevice(_file.FullName, FileMode.OpenOrCreate);
+                _captureFileWriter.Write(e.Packet);
 			}
 			catch (Exception ex)
 			{
@@ -251,11 +266,11 @@ namespace WhiteNoise.Listen
 			}
 			finally
 			{
-				// Clean up.
-				if (writer != null)
-				{
-					writer.Close();
-				}
+                //// Clean up.
+                //if (writer != null)
+                //{
+                //    writer.Close();
+                //}
 			}
 		}
 	}

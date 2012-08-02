@@ -64,7 +64,7 @@ namespace WhiteNoise.Test.Listen
 		}
 		
 		/// <summary>
-		/// Checks for the dependecies to be installed.
+		/// Checks for the dependencies to be installed.
 		/// </summary>
 		[Test]
 		public void AreDependeciesInstalled()
