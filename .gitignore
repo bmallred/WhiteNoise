@@ -1,0 +1,7 @@
+*/obj/*
+*/bin/*
+*.Publish.xml
+*.user
+*.ncrunchsolution
+*.ncrunchproject
+*.suo
